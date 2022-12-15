@@ -5,16 +5,39 @@
 # sum if so
 def input():
     with open('inputday4.txt', 'r') as f:
-        lines = f.readlines()
-        assignment_pairs = [entry.strip() for entry in lines]
+        assignment_pairs = [i for i in f.read().strip().split("\n")]
+    f.close()
     return assignment_pairs
-def rng(a,b):
-    a_s, a_f = map(int, a.split('-'))
-    a_b, b_f = map(int, b.split('-'))
-    return a_b <= a_s and a_f <= b_f
-    
+def part1():
+    pairs = 0
+    data = input()
+    for entry in data:
+        first, second = entry.split(",")
+        first= [int(i) for i in first.split('-')]
+        second = [int(i) for i in second.split('-')]
+        #
+        if first[0] <= second[0] and first[1] >=second[1]:
+            pairs += 1
+        elif second[0] <= first[0] and second[1] >= first[1]:
+            pairs +=1
+        else:
+            continue
+    return pairs
 
-def main():
-    text = input()
-    print(text)
-main()
+def part2():
+    pairs = 0
+    data = input()
+    for entry in data:
+        first, second = entry.split(",")
+        first= [int(i) for i in first.split('-')]
+        second = [int(i) for i in second.split('-')]
+        #
+        if first[0] in range(second[0],second[1]+1) or first[1] in range(second[0],second[1]+1):
+            pairs += 1
+        elif second[0] in range(first[0],first[1]+1) or second[1] in range(first[0],first[1]+1):
+            pairs +=1
+        else:
+            continue
+    return pairs
+res = part2()
+print(res)
